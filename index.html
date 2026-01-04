@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FFmpeg2026.1.4亲切群友特别版</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                color: #e6e6e6;
+                line-height: 1.6;
+                min-height: 100vh;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .container {
+                max-width: 1000px;
+                width: 100%;
+                padding: 30px;
+                background-color: rgba(25, 25, 35, 0.85);
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+                text-align: center;
+                margin: 20px 0;
+                border: 1px solid #4a4a6d;
+            }
+
+            .header {
+                margin-bottom: 40px;
+                padding-bottom: 25px;
+                border-bottom: 2px solid #4cc9f0;
+            }
+
+            h1 {
+                color: #4cc9f0;
+                font-size: 2.8rem;
+                margin-bottom: 15px;
+                text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+                letter-spacing: 1px;
+            }
+
+            .subtitle {
+                color: #72efdd;
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+                font-weight: 300;
+            }
+
+            .version {
+                background: linear-gradient(90deg, #4361ee, #3a0ca3);
+                padding: 8px 20px;
+                border-radius: 50px;
+                display: inline-block;
+                font-weight: bold;
+                margin-top: 10px;
+                box-shadow: 0 0 15px rgba(67, 97, 238, 0.5);
+            }
+
+            .emoji {
+                font-size: 1.8rem;
+                margin: 0 5px;
+                vertical-align: middle;
+            }
+
+            .feature-section {
+                margin: 35px 0;
+                padding: 25px;
+                background-color: rgba(40, 40, 60, 0.6);
+                border-radius: 15px;
+                border-left: 5px solid #f72585;
+                text-align: left;
+            }
+
+            .feature-title {
+                color: #f72585;
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .feature-list {
+                list-style-type: none;
+                padding-left: 0;
+            }
+
+            .feature-item {
+                margin-bottom: 20px;
+                padding: 15px;
+                background-color: rgba(50, 50, 70, 0.5);
+                border-radius: 10px;
+                transition:
+                    transform 0.3s,
+                    background-color 0.3s;
+            }
+
+            .feature-item:hover {
+                transform: translateY(-5px);
+                background-color: rgba(60, 60, 85, 0.8);
+            }
+
+            .feature-item strong {
+                color: #4cc9f0;
+                font-size: 1.2rem;
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .highlight {
+                color: #72efdd;
+                font-weight: bold;
+                background-color: rgba(114, 239, 221, 0.1);
+                padding: 2px 6px;
+                border-radius: 4px;
+            }
+
+            .special-preset {
+                background-color: rgba(155, 89, 182, 0.2);
+                border-left: 5px solid #9b59b6;
+                padding: 20px;
+                margin: 30px 0;
+                border-radius: 10px;
+            }
+
+            .friends-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+                margin: 20px 0;
+            }
+
+            .friend-tag {
+                background: linear-gradient(135deg, #9b59b6, #8e44ad);
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-weight: bold;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s;
+            }
+
+            .friend-tag:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 15px rgba(155, 89, 182, 0.7);
+            }
+
+            .qa-section {
+                margin: 40px 0;
+                padding: 25px;
+                background-color: rgba(30, 40, 60, 0.6);
+                border-radius: 15px;
+                border-left: 5px solid #4361ee;
+            }
+
+            .qa-title {
+                color: #4361ee;
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .question {
+                color: #f72585;
+                font-weight: bold;
+                margin: 20px 0 10px 0;
+                font-size: 1.2rem;
+            }
+
+            .answer {
+                margin-bottom: 20px;
+                padding: 15px;
+                background-color: rgba(40, 50, 70, 0.5);
+                border-radius: 10px;
+                line-height: 1.7;
+            }
+
+            .performance-table {
+                width: 100%;
+                margin: 25px 0;
+                border-collapse: collapse;
+                overflow: hidden;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .performance-table th {
+                background-color: #4361ee;
+                color: white;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .performance-table td {
+                padding: 12px 15px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .performance-table tr:nth-child(even) {
+                background-color: rgba(67, 97, 238, 0.1);
+            }
+
+            .improvement {
+                color: #72efdd;
+                font-weight: bold;
+            }
+
+            .decline {
+                color: #f72585;
+                font-weight: bold;
+            }
+
+            .footer {
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid #4a4a6d;
+                color: #a0a0c0;
+                font-size: 0.9rem;
+            }
+
+            .call-to-action {
+                background: linear-gradient(135deg, #f72585, #b5179e);
+                padding: 15px 30px;
+                border-radius: 50px;
+                display: inline-block;
+                margin: 20px 0;
+                font-weight: bold;
+                font-size: 1.2rem;
+                text-decoration: none;
+                color: white;
+                transition: all 0.3s;
+                box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+            }
+
+            .call-to-action:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(247, 37, 133, 0.6);
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    padding: 20px;
+                }
+
+                h1 {
+                    font-size: 2.2rem;
+                }
+
+                .subtitle {
+                    font-size: 1.2rem;
+                }
+
+                .feature-section,
+                .qa-section {
+                    padding: 15px;
+                }
+
+                .friends-list {
+                    gap: 8px;
+                }
+
+                .friend-tag {
+                    padding: 6px 12px;
+                    font-size: 0.9rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>FFmpeg 2026.1.4 "亲切群友特别版"</h1>
+                <div class="subtitle">
+                    史诗级更新！把亲切的群友做成了预设参数
+                </div>
+                <div class="version">版本号：2026.1.4 完整版</div>
+                <div style="margin-top: 20px">
+                    <span class="emoji">🎉</span>
+                    <span>编译日期：2026年1月4日</span>
+                    <span class="emoji">🎬</span>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <div class="feature-title">
+                    <span class="emoji">🚀</span> 主要新特性
+                </div>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <strong>1. AVS2解码器支持10bit解码</strong>
+                        终于可以解码那些高位深AVS2视频了！再也不用担心CCTV4K超高清频道的视频放不了。
+                    </li>
+                    <li class="feature-item">
+                        <strong>2. 基于原版改进的SVT-AV1-Essential</strong>
+                        保留了SVT-AV1的核心优势，同时优化了预设参数，让它更加"贴心"。
+                    </li>
+                    <li class="feature-item">
+                        <strong>3. 最新版VapourSynth支持</strong>
+                        紧跟潮流，支持最新VapourSynth版本，虽然没人用，但是不能没有。
+                    </li>
+                    <li class="feature-item">
+                        <strong>4. x265预设参数大改造</strong>
+                        这不是简单的参数调整，这是艺术！是对群友的深情告白！
+                    </li>
+                </ul>
+            </div>
+
+            <div class="special-preset">
+                <div class="feature-title" style="color: #9b59b6">
+                    <span class="emoji">👥</span> 史诗级功能：群友预设
+                </div>
+                <p style="margin-bottom: 20px; text-align: center">
+                    我们做了一个大胆的决定：把<span class="highlight"
+                        >亲切的群友们</span
+                    >做成了x265预设参数！ 现在你可以使用
+                    <span class="highlight">-tune 群友名</span>
+                    来调用专属编码配置。
+                </p>
+
+                <div style="margin: 25px 0">
+                    <strong
+                        style="
+                            color: #72efdd;
+                            display: block;
+                            margin-bottom: 10px;
+                        "
+                        >预设效果：</strong
+                    >
+                    <p>
+                        默认CRF从28改为<span class="highlight">16</span
+                        >，以求发挥x265相较svtav1在对部分片源进行高画质编码时更不易使人眼察觉细节丢失的优势
+                    </p>
+                    <p>配合关闭高CRF画质补偿和强力平滑滤镜，实现：</p>
+                    <ul
+                        style="
+                            list-style-type: none;
+                            padding: 15px;
+                            background-color: rgba(0, 0, 0, 0.2);
+                            border-radius: 10px;
+                            margin-top: 10px;
+                        "
+                    >
+                        <li>🎯 画质提升：相同码率下画质更优</li>
+                        <li>📉 码率降低：相同画质下文件更小</li>
+                        <li>⚡ 编码更快：耗时减少5-9%</li>
+                        <li>
+                            🏷️
+                            彩蛋功能：每一位亲切的群友的名字都会写入被x265编码的视频中，无法关闭！
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="margin: 25px 0">
+                    <strong
+                        style="
+                            color: #72efdd;
+                            display: block;
+                            margin-bottom: 10px;
+                        "
+                        >可选的亲切群友预设：</strong
+                    >
+                    <div class="friends-list">
+                        <div class="friend-tag">hajimanbo</div>
+                        <div class="friend-tag">commander</div>
+                        <div class="friend-tag">haha</div>
+                        <div class="friend-tag">zogmos</div>
+                        <div class="friend-tag">loneshore</div>
+                        <div class="friend-tag">simlalsy</div>
+                        <div class="friend-tag">uyanide</div>
+                        <div class="friend-tag">unmenyo</div>
+                        <div class="friend-tag">moyingji</div>
+                        <div class="friend-tag">rikacelery</div>
+                        <div class="friend-tag">nelocompne</div>
+                        <div class="friend-tag">farfar</div>
+                        <div class="friend-tag">mght</div>
+                        <div class="friend-tag">lake1059</div>
+                        <div class="friend-tag">3fui</div>
+                        <div class="friend-tag">ffmpegfreeui</div>
+                        <div class="friend-tag">ssim</div>
+                        <div class="friend-tag">dbd</div>
+                    </div>
+                    <p
+                        style="
+                            margin-top: 15px;
+                            font-size: 0.9rem;
+                            color: #a0a0c0;
+                        "
+                    >
+                        命令示例：<code
+                            style="
+                                background: rgba(0, 0, 0, 0.3);
+                                padding: 5px 10px;
+                                border-radius: 5px;
+                            "
+                            >ffmpeg -i 原视频.mkv -c:v libx265 -preset slow
+                            -tune dbd 编码后.mkv</code
+                        >
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin: 30px 0">
+                <div class="feature-title">
+                    <span class="emoji">📊</span> 性能测试结果
+                </div>
+                <p style="margin-bottom: 20px; text-align: center">
+                    我们在多种片源上测试了群友预设的效果，结果令人惊喜！
+                </p>
+
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>测试片源</th>
+                            <th>相同码率下的画质（XPSNR）</th>
+                            <th>相同画质（SSIM、XPSNR）下的码率</th>
+                            <th>编码耗时变化</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1024p 60fps CSGO录屏</td>
+                            <td class="improvement">+0.05dB</td>
+                            <td class="improvement">-0.3%</td>
+                            <td class="improvement">-5%</td>
+                        </tr>
+                        <tr>
+                            <td>818p 24fps 开源电影</td>
+                            <td class="decline">-0.17dB</td>
+                            <td class="decline">+2.4%</td>
+                            <td class="improvement">-8%</td>
+                        </tr>
+                        <tr>
+                            <td>1440p 60fps 3DR18MMD</td>
+                            <td class="improvement">+0.03dB</td>
+                            <td class="improvement">-0.6%</td>
+                            <td class="improvement">-8%</td>
+                        </tr>
+                        <tr>
+                            <td>1080p 25fps 微单相机实拍</td>
+                            <td class="improvement">+0.2dB</td>
+                            <td class="improvement">-4%</td>
+                            <td class="improvement">-9%</td>
+                        </tr>
+                        <tr>
+                            <td>1620p 15fps 监控视频</td>
+                            <td class="improvement">+0.3dB</td>
+                            <td class="improvement">-4%</td>
+                            <td class="improvement">-6%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p
+                    style="
+                        margin-top: 15px;
+                        font-size: 0.9rem;
+                        color: #a0a0c0;
+                        text-align: center;
+                    "
+                >
+                    注：多个测试片源下群友预设都带来了画质提升或码率降低，仅开源电影有损失
+                </p>
+            </div>
+
+            <div class="qa-section">
+                <div class="qa-title">
+                    <span class="emoji">❓</span> 技术问答
+                </div>
+
+                <div class="question">Q: 为什么用XPSNR作为调参指标？</div>
+                <div class="answer">
+                    A:
+                    虽然跨编码器对比时这些指标不一定准确，但在对比同一个编码器的不同参数时，SSIM和XPSNR是非常有用的指标。本次调参就用了这两个指标，确保优化是真实有效的。
+                </div>
+
+                <div class="question">Q: PSNR与XPSNR有什么区别？</div>
+                <div class="answer">
+                    A:
+                    PSNR类似于简单的像素差异计算，与视觉感知关系不大。而XPSNR类似VMAF，更能反映人眼实际看到的画质差异。<br /><br />
+                    选择XPSNR是因为在部分片源的高画质编码中，X265不会像SVT-AV1那样产生不小面积不盯帧也肉眼可辨的细节丢失，而一些参数需要配合低CRF使用，但在低CRF下易达到VMAF的最大量程，测不出参数差异，所以XPSNR成为了理想选择。
+                </div>
+            </div>
+
+            <a
+                href="https://github.com/netony/ffmpeg/releases"
+                class="call-to-action"
+            >
+                <span class="emoji">⬇️</span> 立即下载FFmpeg 2026.1.4
+                "亲切群友特别版"
+            </a>
+
+            <div class="footer">
+                <p>
+                    温馨提示：此版本为特别编译版，包含了实验性功能，适合喜欢折腾的编码爱好者。
+                </p>
+                <p>
+                    感谢所有为这个项目提供灵感的亲切群友们！你们的"名字"将随着每一个编码的视频流传下去~
+                </p>
+                <p style="margin-top: 15px">
+                    © 2026 哈基曼波 | 本页面仅为娱乐目的制作
+                </p>
+            </div>
+        </div>
+
+        <script>
+            //群友预设
+            document.querySelectorAll(".friend-tag").forEach((tag) => {
+                tag.addEventListener("click", function () {
+                    const friendName = this.textContent;
+                    const codeElement = document.querySelector("code");
+                    if (codeElement) {
+                        codeElement.textContent = `ffmpeg -i 原视频.mkv -c:v libx265 -preset slow -tune ${friendName} 编码后.mkv`;
+                    }
+
+                    this.style.transform = "scale(1.2)";
+                    this.style.boxShadow = "0 0 20px rgba(155, 89, 182, 0.9)";
+                    setTimeout(() => {
+                        this.style.transform = "";
+                        this.style.boxShadow = "";
+                    }, 300);
+                });
+            });
+
+            //性能表格
+            document
+                .querySelectorAll(".performance-table tr")
+                .forEach((row) => {
+                    row.addEventListener("mouseenter", function () {
+                        this.style.backgroundColor = "rgba(67, 97, 238, 0.2)";
+                    });
+
+                    row.addEventListener("mouseleave", function () {
+                        this.style.backgroundColor = "";
+                    });
+                });
+        </script>
+    </body>
+</html>
